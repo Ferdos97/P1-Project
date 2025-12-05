@@ -81,7 +81,6 @@ def main():
             print('Thank you for using this app, GoodBye..')
             break
         else:
-            print('Invalid choice, Please try again.')
-            
+            print('Invalid choice, Please try again.')    
 
 main()

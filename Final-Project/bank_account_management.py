@@ -69,7 +69,6 @@ class BankAccountManagement:
         except:
             return {'status': 'error', 'msg': 'Some error happend..'}
     
-
     def deposit(self, to_who:str, amount):
         try:
             to_who = int(to_who)
