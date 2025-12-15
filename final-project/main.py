@@ -41,8 +41,8 @@ def show_user_ids_and_balance():
         return
     print("User IDs, Names and Balances:")
     for user_id, info in bam.accounts.items():
-        status = info.get('status', 'active')
-        status_display = f"({status})" if status != 'active' else ""
+        status = info.get('status', 'Active')
+        status_display = f"({status.capitalize()})" if status != 'active' else ""
         print(f"{user_id} - {info['name']} {status_display} - Balance: {info['balance']}")
 
 def transfer():

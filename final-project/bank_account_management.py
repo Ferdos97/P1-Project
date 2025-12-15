@@ -12,7 +12,7 @@ class BankAccountManagement:
             status = self.accounts[id].get('status', 'active')
             name = self.accounts[id]['name']
             balance = self.accounts[id]['balance']
-            status_display = f"({status})" if status != 'active' else ""
+            status_display = f"({status.capitalize()})" if status != 'active' else ""
             print(f"{id}- {name} {status_display} ({balance})")
             for history in self.accounts[id]['history']:
                 print(f'\t- {history.get("type")} {history.get("amount")} at {history.get("time")}')
@@ -122,8 +122,8 @@ class BankAccountManagement:
     def deactivate_user(self, user_id: str):
         if user_id not in self.accounts:
             return {'status': 'error', 'msg': 'User not found!'}
-        if self.accounts[user_id]['status'] == 'Deactivated':
+        if self.accounts[user_id]['status'] == 'deactivated':
             return {'status': 'error', 'msg': 'User is already deactivated.'}
-        self.accounts[user_id]['status'] = 'Deactivated'
+        self.accounts[user_id]['status'] = 'deactivated'
         return {'status': 'ok', 'msg': f"User {self.accounts[user_id]['name']} deactivated successfully."}
     
