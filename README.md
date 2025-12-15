@@ -1,2 +1,2 @@
 # P1-Project
-This is my Python1 Final Project.
+This is my Python 1 Final Project.
