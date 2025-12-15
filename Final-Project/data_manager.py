@@ -4,7 +4,6 @@ class DataManager:
     def __init__(self, path = 'data.json'):
         self.path = path
 
-    
     def get(self):
         try:
             with open(self.path, 'r') as f:

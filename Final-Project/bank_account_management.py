@@ -4,7 +4,6 @@ class BankAccountManagement:
     def __init__(self, accounts:dict):
         self.accounts = accounts
 
-   
     def show_info(self):
         if not self.accounts:
             print("No data to show!")
@@ -18,18 +17,15 @@ class BankAccountManagement:
             for history in self.accounts[id]['history']:
                 print(f'\t- {history.get("type")} {history.get("amount")} at {history.get("time")}')
 
-
     def add_user(self, name:str, first_amount:float):
         if not name:
             return {'status': 'error', 'msg': 'Name can not be empty!'}
         if not name.isalpha():
             return {'status': 'error', 'msg': 'Name must contain only letters!'}
-
         try:
             first_amount = float(first_amount)
         except:
             return {'status': 'error', 'msg': 'Amount should be a number!'}
-            
         id = len(self.accounts) + 1
         self.accounts.update({
             str(id): {
@@ -42,7 +38,6 @@ class BankAccountManagement:
                 }
         })
         return {'status': 'ok'}
-
 
     def transfer(self, from_who:str, to_whom:str, amount:str): 
         try:
@@ -77,7 +72,6 @@ class BankAccountManagement:
         except:
             return {'status': 'error', 'msg': 'Some error happened..'}
 
-
     def deposit(self, to_who:str, amount):
         try:
             to_who = int(to_who)
@@ -91,7 +85,6 @@ class BankAccountManagement:
             return {'status': 'error', 'msg': 'Deposit user is deactivated, operation not allowed.'}
         if amount <= 0:
             return {'status': 'error', 'msg': 'Amount must be positive.'}
-
         try:
             self.accounts[to_who]['balance'] += amount
             self.accounts[to_who]['history'].append({
@@ -103,27 +96,21 @@ class BankAccountManagement:
         except Exception as e:
             return {'status': 'error', 'msg': f'Some error happened!: {e}'}
 
-
     def withdraw(self, from_who:str, amount):
         try:
             from_who = int(from_who)
             amount = float(amount)
         except:
-            return {'status': 'error', 'msg': 'Invalid input: Please provide valid numeric values for IDs and amount.'}
-            
+            return {'status': 'error', 'msg': 'Invalid input: Please provide valid numeric values for IDs and amount.'}  
         from_who = str(from_who)
         if from_who not in self.accounts:
             return {'status': 'error', 'msg': 'Account not found!'}
-        
         if self.accounts[from_who].get('status', 'active') != 'active':
             return {'status': 'error', 'msg': 'Withdraw user is deactivated, operation not allowed.'}
-
         if amount <= 0:
             return {'status': 'error', 'msg': 'Amount must be positive.'}
-
         if self.accounts[from_who]['balance'] < amount:
             return {'status': 'error', 'msg': 'Insufficient balance!'}
-
         self.accounts[from_who]['balance'] -= amount
         self.accounts[from_who]['history'].append({
             'time': dt.now().strftime('%Y-%m-%d %H:%M'),
@@ -132,7 +119,6 @@ class BankAccountManagement:
         })
         return {'status': 'ok'}
 
-
     def deactivate_user(self, user_id: str):
         if user_id not in self.accounts:
             return {'status': 'error', 'msg': 'User not found!'}
@@ -140,4 +126,4 @@ class BankAccountManagement:
             return {'status': 'error', 'msg': 'User is already deactivated.'}
         self.accounts[user_id]['status'] = 'Deactivated'
         return {'status': 'ok', 'msg': f"User {self.accounts[user_id]['name']} deactivated successfully."}
-
+    

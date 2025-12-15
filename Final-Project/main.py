@@ -35,7 +35,6 @@ def add_user():
     if result['status'] == 'error':
         print(result['msg'])
 
-
 def show_user_ids_and_balance():
     if not bam.accounts:
         print("No users found.")
@@ -45,7 +44,6 @@ def show_user_ids_and_balance():
         status = info.get('status', 'active')
         status_display = f"({status})" if status != 'active' else ""
         print(f"{user_id} - {info['name']} {status_display} - Balance: {info['balance']}")
-
 
 def transfer():
     show_user_ids_and_balance()
@@ -58,7 +56,6 @@ def transfer():
         print('Recipient user is deactivated, operation not allowed.')
         return
     amount = input('Amount: ')
-    
     result = bam.transfer(from_who, to_whom, amount)
     if result['status'] == 'error':
         print(result['msg'])
@@ -98,7 +95,6 @@ def withdraw():
         name = bam.accounts[from_who]['name']
         print(f"{amount} $ withdrawn from {name}!")
 
-
 def deactivate():
     show_user_ids_and_balance()
     user_id = input('Enter user id to deactivate: ')
@@ -108,7 +104,6 @@ def deactivate():
         print(result['msg'])
     else:
         print(result['msg'])
-
 
 def main():
     while True:
