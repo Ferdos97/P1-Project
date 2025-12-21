@@ -47,14 +47,20 @@ def show_user_ids_and_balance():
 
 def transfer():
     show_user_ids_and_balance()
-    from_who = input('From who? (ID): ')
-    if bam.accounts.get(from_who, {}).get('status', 'active') != 'active':
-        print('Sender user is deactivated, operation not allowed.')
-        return
-    to_whom = input('To whom? (ID): ')
-    if bam.accounts.get(to_whom, {}).get('status', 'active') != 'active':
-        print('Recipient user is deactivated, operation not allowed.')
-        return
+    while True:
+        from_who = input('From who? (ID): ')
+        if bam.accounts.get(from_who, {}).get('status', 'active') != 'active':
+            print('Sender user is deactivated, operation not allowed.')
+            return
+        to_whom = input('To whom? (ID): ')
+        if bam.accounts.get(to_whom, {}).get('status', 'active') != 'active':
+            print('Recipient user is deactivated, operation not allowed.')
+            return
+        check = bam.can_transfer(from_who, to_whom)
+        if check['status'] == 'error':
+            print(check['msg'])
+            continue
+        break
     amount = input('Amount: ')
     result = bam.transfer(from_who, to_whom, amount)
     if result['status'] == 'error':
@@ -64,6 +70,7 @@ def transfer():
         from_name = bam.accounts[str(from_who)]['name']
         to_name = bam.accounts[str(to_whom)]['name']
         print(f"Successfully transferred {amount} $ from {from_name} to {to_name}.")
+
 
 def deposit():
     show_user_ids_and_balance()

@@ -48,6 +48,8 @@ class BankAccountManagement:
             return {'status': 'error', 'msg': 'Invalid input: Please provide valid numeric values for IDs and amount.'}          
         from_who = str(from_who)
         to_whom = str(to_whom)
+        if from_who == to_whom:
+            return {'status': 'error', 'msg': 'Transfer between the same account is not allowed.'}
         if from_who not in self.accounts:
             return {'status': 'error', 'msg': 'Withdraw user does not exist!'}
         if self.accounts[from_who].get('status', 'active') != 'active':
@@ -71,6 +73,16 @@ class BankAccountManagement:
             return {'status': 'ok'}
         except:
             return {'status': 'error', 'msg': 'Some error happened..'}
+        
+    def can_transfer(self, from_who: str, to_whom: str) -> dict:
+        try:
+            from_who_int = int(from_who)
+            to_whom_int = int(to_whom)
+        except:
+            return {'status': 'error', 'msg': 'Invalid user IDs.'}
+        if from_who_int == to_whom_int:
+            return {'status': 'error', 'msg': 'Transfer between the same account is not allowed.'}
+        return {'status': 'ok'}
 
     def deposit(self, to_who:str, amount):
         try:
